@@ -4,7 +4,7 @@ import { defineStore } from "pinia";
 export const useUserDataStore = defineStore("userData", {
   state: () => ({ userData: {} }),
   getters: {
-    getUserData: (state) => state.userData,
+    user: (state) => state.userData,
   },
   actions: {
     setUserData(data: UserDataTypes) {

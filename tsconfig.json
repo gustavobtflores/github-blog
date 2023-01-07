@@ -12,5 +12,7 @@
     {
       "path": "./tsconfig.config.json"
     }
-  ]
+  ],
+
+  "checkjs": true
 }

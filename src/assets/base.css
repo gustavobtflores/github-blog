@@ -7,6 +7,11 @@
   --base-profile: #0b1b2b;
   --base-label: #3a536b;
   --base-subtitle: #c4d4e3;
+  --base-span: #7b96b2;
+  --base-input: #040f1a;
+  --base-border: #1c2f41;
+  --base-text: #afc2d4;
+  --base-post: #112131;
 
   --brand-blue: #3294f8;
 }
@@ -20,14 +25,43 @@
   font-weight: normal;
 }
 
+body,
+input,
+textarea,
+select,
+button {
+  font: 400 1rem "Nunito", sans-serif;
+}
+
 body {
   color: var(--color-text);
   background: var(--color-background);
   line-height: 1.6;
-  font-family: Nunito, sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1080px) {
+  html {
+    font-size: 93.75%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 87.5%;
+  }
 }
 
 .title-large {
@@ -36,14 +70,29 @@ body {
   line-height: 1.3;
 }
 
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .link {
   font-size: 12px;
   font-weight: 700;
   text-decoration: none;
   border-bottom: 1px solid transparent;
   transition: border-color 0.2s ease;
+  color: var(--brand-blue);
 }
 
 .link:hover {
   border-bottom: 1px solid currentColor;
+}
+
+pre {
+  background-color: var(--base-post);
+  border-radius: 2px;
+  padding: 1rem;
+  margin: 24px 0;
 }
