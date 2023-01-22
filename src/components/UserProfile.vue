@@ -60,20 +60,12 @@ export default defineComponent({
   },
   methods: {
     getUserData() {
-      var storedData = localStorage.getItem("@GithubBlog:UserData");
-
-      if (storedData) {
-        this.userData = JSON.parse(storedData);
-        this.setUserData(JSON.parse(storedData));
-      } else {
-        axios
-          .get("https://api.github.com/users/gustavobtflores")
-          .then((res) => {
-            this.userData = res.data;
-            localStorage.setItem("@GithubBlog:UserData", JSON.stringify(res.data));
-          })
-          .catch((err) => console.log(err));
-      }
+      axios
+        .get("https://api.github.com/users/gustavobtflores")
+        .then((res) => {
+          this.userData = res.data;
+        })
+        .catch((err) => console.log(err));
     },
     ...mapActions(useUserDataStore, ["setUserData"]),
   },

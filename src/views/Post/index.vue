@@ -70,28 +70,16 @@ export default defineComponent({
 
   methods: {
     fetchIssue() {
-      const storedData = localStorage.getItem(
-        `@GithubBlog:Post:${this.$route.params.id}`
-      );
-
-      if (storedData) {
-        this.post = JSON.parse(storedData);
-      } else {
-        axios
-          .get(
-            `https://api.github.com/repos/gustavobtflores/github-blog/issues/${this.$route.params.id}`
-          )
-          .then((res) => {
-            this.post = res.data;
-            localStorage.setItem(
-              `@GithubBlog:Post:${this.$route.params.id}`,
-              JSON.stringify(res.data)
-            );
-          })
-          .catch((err) => {
-            this.error = err.response;
-          });
-      }
+      axios
+        .get(
+          `https://api.github.com/repos/gustavobtflores/github-blog-vue/issues/${this.$route.params.id}`
+        )
+        .then((res) => {
+          this.post = res.data;
+        })
+        .catch((err) => {
+          this.error = err.response;
+        });
     },
     formatDistance(date: string) {
       return formatDistanceToNow(new Date(date), {

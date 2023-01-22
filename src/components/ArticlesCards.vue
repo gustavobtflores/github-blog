@@ -1,11 +1,16 @@
 <template>
   <section>
-    <form>
+    <form @submit.prevent>
       <header>
         <label for="">Publicações</label>
         <span>{{ issues.length }} {{}}</span>
       </header>
-      <input type="text" placeholder="Buscar conteúdo" />
+      <input
+        type="text"
+        placeholder="Buscar conteúdo"
+        @keyup.enter="searchIssues"
+        @blur="searchIssues"
+      />
     </form>
     <div class="articles">
       <ul class="articles__list">
@@ -51,21 +56,23 @@ export default defineComponent({
   computed: {},
   methods: {
     getIssues() {
-      const storedIssues = localStorage.getItem("@GithubBlog:UserIssues");
-
-      if (storedIssues) {
-        this.issues = JSON.parse(storedIssues);
-      } else {
-        axios
-          .get("https://api.github.com/repos/gustavobtflores/github-blog/issues")
-          .then((res) => {
-            this.issues = res.data;
-            localStorage.setItem("@GithubBlog:UserIssues", JSON.stringify(res.data));
-          })
-          .catch((err) => {
-            console.log(err.response);
-          });
-      }
+      axios
+        .get("https://api.github.com/repos/gustavobtflores/github-blog-vue/issues")
+        .then((res) => {
+          this.issues = res.data;
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    },
+    searchIssues(event: any) {
+      axios
+        .get(
+          `https://api.github.com/search/issues?q=${encodeURI(
+            event.target.value
+          )}repo:gustavobtflores/github-blog-vue`
+        )
+        .then((res) => (this.issues = res.data.items));
     },
     markdownToHtml(markdown: string) {
       return marked(markdown);
@@ -142,8 +149,7 @@ section {
         &__info {
           display: flex;
           flex-wrap: wrap;
-          align-items: center;
-          justify-content: space-between;
+          flex-direction: column;
 
           span {
             font-size: 0.875rem;
